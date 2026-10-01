@@ -7,7 +7,10 @@ Setup
 -----
     opencode serve                          # local server on :4096
     export DISCORD_BOT_TOKEN=...            # Discord bot token
-    uv run python examples/opencode_bot.py  # (or python with deps installed)
+    uv run --extra opencode discblock-example
+    # or, without cloning: uvx --from
+    #   "discblock[opencode] @ git+https://github.com/3pm-baking/discblock"
+    #   discblock-example
 
 @mention the bot in a channel -> it opens a thread, pairs it with an
 opencode session, and relays the conversation. To author UI, the agent

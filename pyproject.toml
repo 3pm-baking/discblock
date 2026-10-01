@@ -31,6 +31,12 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 
+[project.optional-dependencies]
+opencode = ["opencode-ai>=0.1.0a1"]
+
+[project.scripts]
+discblock-example = "discblock.examples.opencode_bot:main"
+
 [project.urls]
 Repository = "https://github.com/3pm-baking/discblock"
 Issues = "https://github.com/3pm-baking/discblock/issues"
@@ -61,4 +67,4 @@ convention = "google"
 
 [tool.ruff.lint.per-file-ignores]
 "tests/**/*.py" = ["D", "E501"]
-"examples/**/*.py" = ["D"]
+"src/discblock/examples/**/*.py" = ["D"]

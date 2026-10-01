@@ -55,9 +55,13 @@ threads with opencode sessions (default model: the free
 ending replies with a fenced `discblock` JSON payload:
 
 ```bash
+# run the bundled example without cloning anything:
+uvx --from "discblock[opencode] @ git+https://github.com/3pm-baking/discblock" discblock-example
+
+# or, from a checkout:
 opencode serve                              # local server on :4096
 export DISCORD_BOT_TOKEN=...
-uv run python examples/opencode_bot.py
+uv run --extra opencode discblock-example
 ```
 
 @mention the bot in a channel; ask it something that has enumerable

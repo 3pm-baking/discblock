@@ -56,8 +56,7 @@ class TestReply:
     def test_row_wrapping_is_renderers_job(self):
         # one block may hold up to MAX_BUTTONS; the renderer wraps rows
         buttons = [
-            Button(label=str(i), value=str(i))
-            for i in range(MAX_BUTTONS_PER_ROW + 1)
+            Button(label=str(i), value=str(i)) for i in range(MAX_BUTTONS_PER_ROW + 1)
         ]
         assert Reply(blocks=[ButtonsBlock(buttons=buttons)])
 
