@@ -27,7 +27,7 @@ from .blocks import (
     lint,
 )
 from .payload import ClickPayload, decode, encode
-from .routing import AgentTurn, InteractionRouter, SessionBridge
+from .routing import AgentTurn, InteractionRouter, SessionBridge, deliverable
 from .views import ModalRegistry, build_modal, build_view
 
 __all__ = [
@@ -51,6 +51,7 @@ __all__ = [
     "build_modal",
     "build_view",
     "decode",
+    "deliverable",
     "encode",
     "lint",
 ]

@@ -41,6 +41,17 @@ class SessionBridge(Protocol):
 SessionResolver = Callable[[discord.Interaction], Awaitable[str | None]]
 
 
+def deliverable(reply: Reply | str, modals: ModalRegistry | None = None) -> bool:
+    """True if `reply` should be posted (has text or controls).
+
+    An empty Reply means the runtime rendered its output elsewhere
+    (e.g. a progress embed); the router then only disables controls.
+    """
+    if not isinstance(reply, Reply):
+        return bool(reply.strip())
+    return bool(reply.text) or build_view(reply, modals) is not None
+
+
 class InteractionRouter:
     """Handle component interactions for a bot using a SessionBridge."""
 
@@ -52,7 +63,7 @@ class InteractionRouter:
     ):
         self._bridge = bridge
         self._session_for = session_for
-        self._modals = modals if modals is not None else ModalRegistry()
+        self.modals = modals if modals is not None else ModalRegistry()
 
     async def handle(self, interaction: discord.Interaction) -> None:
         """Process one component or modal-submit interaction."""
@@ -74,9 +85,9 @@ class InteractionRouter:
                     fields=_modal_fields(interaction),
                 ),
             )
-        elif self._modals.get(custom_id) is not None:
+        elif self.modals.get(custom_id) is not None:
             await interaction.response.send_modal(
-                build_modal(self._modals.get(custom_id), custom_id)
+                build_modal(self.modals.get(custom_id), custom_id)
             )
         else:
             await self._resume(interaction, AgentTurn(kind="click", value=click.value))
@@ -90,7 +101,8 @@ class InteractionRouter:
             return
         await interaction.response.defer()
         reply = await self._bridge.resume(session_id, turn)
-        await self._deliver(interaction, reply)
+        if deliverable(reply, self.modals):
+            await self._deliver(interaction, reply)
 
     async def _deliver(
         self, interaction: discord.Interaction, reply: Reply | str
@@ -99,7 +111,7 @@ class InteractionRouter:
         if not isinstance(reply, Reply):
             reply = Reply(blocks=[{"type": "text", "content": reply}])
         kwargs: dict = {"content": reply.text or None}
-        view = build_view(reply, self._modals)
+        view = build_view(reply, self.modals)
         if view is not None:
             kwargs["view"] = view
         await interaction.followup.send(**kwargs)
