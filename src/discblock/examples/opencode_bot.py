@@ -67,13 +67,18 @@ def turn_prompt(turn: AgentTurn) -> str:
 class OpenCodeBridge:
     """SessionBridge over a local opencode server.
 
-    Sessions pair 1:1 with Discord threads, in memory (an example bot
-    loses pairing on restart; a real deployment persists the mapping).
+    Bring your own: inject the opencode client and the thread->session
+    map you already maintain. The defaults exist only so this example
+    runs standalone (in-memory pairing; lost on restart).
     """
 
-    def __init__(self) -> None:
-        self.client = AsyncOpencode(base_url=OPENCODE_BASE_URL)
-        self.sessions: dict[int, str] = {}  # thread id -> session id
+    def __init__(
+        self,
+        client: AsyncOpencode | None = None,
+        sessions: dict[int, str] | None = None,
+    ) -> None:
+        self.client = client or AsyncOpencode(base_url=OPENCODE_BASE_URL)
+        self.sessions = sessions if sessions is not None else {}
 
     async def new_session(self, thread_id: int) -> str:
         session = await self.client.session.create(extra_body={})
