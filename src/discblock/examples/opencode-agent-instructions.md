@@ -1,5 +1,10 @@
 # Agent instructions: authoring UI with discblock
 
+The machine-readable core of this guide ships as
+`discblock.INSTRUCTIONS` — hosts inject that (header, system prompt,
+or instructions file) instead of copying this file. The text below is
+the full guide hosts give their agent when they can load it wholesale.
+
 Give these instructions to the opencode agent (e.g. as its system
 prompt / instructions file) so it can author interactive Discord UI.
 

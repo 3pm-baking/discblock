@@ -26,6 +26,7 @@ from .blocks import (
     TextBlock,
     lint,
 )
+from .instructions import INSTRUCTIONS
 from .payload import ClickPayload, decode, encode
 from .routing import AgentTurn, InteractionRouter, SessionBridge, deliverable
 from .views import ModalRegistry, build_modal, build_view
@@ -38,6 +39,7 @@ __all__ = [
     "Button",
     "ButtonsBlock",
     "ClickPayload",
+    "INSTRUCTIONS",
     "ImageBlock",
     "InteractionRouter",
     "ModalBlock",
