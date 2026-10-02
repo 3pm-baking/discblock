@@ -42,6 +42,39 @@ back verbatim), `style` (`primary`, `secondary`, `success`, `danger`),
 optional `modal` (form fields: `label` max 45, `placeholder`,
 `required`, `multiline`; 1-5 fields).
 
+## When to reach for controls
+
+Good triggers — the reply is offering the user a genuine fork:
+
+- **Enumerated comparison or plan choice.** "West Asheville or Black
+  Mountain?" — two-plus concrete options where the next turn depends
+  entirely on the pick.
+- **Disambiguation.** The request names something fuzzy ("the lemon
+  thing", "that tart we did in May") and the candidate set is known and
+  small. Offer the matches instead of guessing.
+- **Confirming an expensive or hard-to-reverse action.** Repricing a
+  menu, sending an invoice, deleting rows — one confirm/cancel row.
+- **Narrowing a multi-step flow.** Market → product → quantity: one
+  question per step, each click shrinking the space.
+- **An offer of alternatives when blocked.** "No prices for this store
+  yet — pick another store / add prices manually."
+
+## When NOT to
+
+- **Informational answers.** A cost table, P&L, or explainer needs zero
+  controls — data speaks in markdown tables.
+- **One obvious next action.** If there's only one sensible move, do it
+  and report; a lone "OK" button is decoration.
+- **The user already said what they want.** "Bake 3 cheese cakes" is an
+  instruction, not a menu.
+- **Re-offering the same buttons after a click.** Never re-post a row
+  the user just answered; resume the flow or move on.
+- **Speculative forks.** Don't pre-offer branches the user hasn't asked
+  about ("want a shopping list too?") — let them type the follow-up.
+- **When the choice is open-ended.** Free-text answers want a normal
+  reply, or a modal attached to one "Other…" button — never 25 buttons
+  guessing at phrasings.
+
 ## Taste rules
 
 - **Most replies need no UI.** Text is the default; reach for controls
